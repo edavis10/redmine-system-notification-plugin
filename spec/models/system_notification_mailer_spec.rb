@@ -4,6 +4,8 @@ describe SystemNotificationMailer, 'system_notification' do
   include SystemNotificationSpecHelper
 
   before(:each) do
+    @user = mock_model(User, :name => 'Test user', :mail => 'admin@example.com', :pref => { })
+    User.stub!(:current).and_return(@user)
     @system_notification = SystemNotification.new(valid_attributes)
     @mail = SystemNotificationMailer.create_system_notification(@system_notification)
   end
@@ -20,6 +22,10 @@ describe SystemNotificationMailer, 'system_notification' do
   
   it 'should use the body from the object' do
     @mail.body.should match(/#{ @system_notification.body }/)
+  end
+  
+  it 'should use the Current user as the reply to' do
+    @mail.from.should include(@user.mail)
   end
   
 end

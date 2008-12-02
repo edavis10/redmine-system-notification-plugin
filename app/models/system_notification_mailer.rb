@@ -3,5 +3,6 @@ class SystemNotificationMailer < Mailer
     recipients system_notification.users.collect(&:mail)
     subject system_notification.subject
     body :body => system_notification.body
+    from User.current.mail
   end
 end
