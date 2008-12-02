@@ -51,3 +51,40 @@ describe SystemNotification, ".deliver" do
     system_notification.deliver.should be_true
   end
 end
+
+describe SystemNotification, ".users_since" do
+  it 'should return an array for a valid Time' do
+    users = SystemNotification.users_since('week')
+    users.should be_an_instance_of(Array)
+  end
+
+  it 'should return an empty array for an invalid Time' do
+    users = SystemNotification.users_since('invalid')
+    users.should be_empty
+  end  
+
+  describe 'should return all users who have been active since' do
+    before(:each) do
+      @user1 = mock_model(User)
+      @user2 = mock_model(User)
+      @user3 = mock_model(User)
+      @user_list = [@user1, @user2, @user3]
+    end
+
+    it 'a week ago' do
+      time = 7.days.ago
+      SystemNotification.should_receive(:time_frame).and_return(time)
+      
+      User.should_receive(:find).with(:all, { :conditions => ['last_login_on > (?)', time] }).and_return(@user_list)
+      users = SystemNotification.users_since('week')
+      users.should eql(@user_list)
+    end
+    
+    it 'all time' do
+      User.should_receive(:find).with(:all).and_return(@user_list)
+      users = SystemNotification.users_since('all')
+      users.should eql(@user_list)
+    end
+    
+  end
+end

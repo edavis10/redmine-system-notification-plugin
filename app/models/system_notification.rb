@@ -44,4 +44,35 @@ class SystemNotification
       return false
     end
   end
+  
+  def self.users_since(time)
+    if SystemNotification::Times.include?(time.to_sym)
+      if time.to_sym == :all
+        users = User.find(:all)
+      else
+        users = User.find(:all, :conditions => ['last_login_on > (?)', time_frame(time)])
+      end
+    else
+      users = []
+
+    end
+    return users
+  end
+  
+  private
+  
+  def self.time_frame(time)
+    case time.to_sym
+    when :day
+      1.day.ago
+    when :week
+      7.days.ago
+    when :month
+      7.month.ago
+    when :this_year
+      Time.parse('Jan 1 ' + Time.now.year.to_s)
+    else
+      nil
+    end
+  end
 end
