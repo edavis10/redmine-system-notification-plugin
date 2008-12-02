@@ -13,6 +13,9 @@ class SystemNotificationController < ApplicationController
     if @system_notification.deliver
       flash[:notice] = "System Notification was successfully sent."
       redirect_to :action => 'index'
+    else
+      flash[:error] = "System Notification was not sent."
+      render :action => 'index'
     end
   end
 end

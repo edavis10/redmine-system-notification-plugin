@@ -66,3 +66,38 @@ describe SystemNotificationController,'#create with valid SystemNotification' do
   end
 
 end
+
+describe SystemNotificationController,'#create with an invalid SystemNotification' do
+  before(:each) do
+    admin = mock_model(User, :admin? => true, :logged? => true)
+    User.stub!(:current).at_least(:once).and_return(admin)
+    
+    user1 = mock_model(User)
+    user2 = mock_model(User)
+    @users = [user1, user2]
+
+    @system_notification = mock_model(SystemNotification, :subject => 'Test', :body => 'A notification', :time => 'week', :users => @users)
+    @system_notification.stub!(:deliver).and_return(false)
+    @system_notification.stub!(:users=)
+    SystemNotification.stub!(:new).and_return(@system_notification)
+    SystemNotification.stub!(:users_since).with('week').and_return(@users)
+  end
+  
+
+  it 'should display the #index' do
+    post :create, :system_notification => { :subject => 'Test', :body => 'A notification', :time => 'week'}
+    response.should be_success
+    response.should render_template('index')
+  end
+  
+  it 'should display a message to the user' do
+    post :create, :system_notification => { :subject => 'Test', :body => 'A notification', :time => 'week'}
+    flash[:error].should match(/not/)
+  end
+  
+  it 'should assign @system_notification for the view' do
+    post :create, :system_notification => { :subject => 'Test', :body => 'A notification', :time => 'week'}
+    assigns[:system_notification].should_not be_nil
+  end
+  
+end
