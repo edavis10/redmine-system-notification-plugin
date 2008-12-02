@@ -21,16 +21,17 @@ class SystemNotification
   end
   
   def valid?
+    self.errors = { }
     if self.subject.blank?
-      self.errors[:subject] = 'activerecord_error_blank'
+      self.errors['subject'] = 'activerecord_error_blank'
     end
     
     if self.body.blank?
-      self.errors[:body] = 'activerecord_error_blank'
+      self.errors['body'] = 'activerecord_error_blank'
     end
     
     if self.users.empty?
-      self.errors[:users] = 'activerecord_error_empty'
+      self.errors['users'] = 'activerecord_error_empty'
     end
     
     return self.errors.empty?

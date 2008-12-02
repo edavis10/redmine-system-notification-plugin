@@ -8,10 +8,10 @@
     <%= f.select 'time', SystemNotification::Times.invert.to_a %>
   </p>
   <p>
-    <%= f.text_field 'subject', :label=>'field_system_notification_subject' -%>
+    <%= f.text_field 'subject'-%>
   </p>
   <p>
-    <%= f.text_area 'body', :label=>'field_system_notification_body', :rows => 7 -%>
+    <%= f.text_area 'body', :rows => 7 -%>
   </p>
 
   <%# TODO: Users %>
