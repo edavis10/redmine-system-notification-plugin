@@ -1,17 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-module SystemNotificationSpecHelper
-  def valid_attributes
-    user1 = mock_model(User)
-    user2 = mock_model(User)
-    return { 
-      :body => 'a body',
-      :subject => 'a subject line',
-      :users => [user1, user2]
-    }
-  end
-end
-
 describe SystemNotification do
   it 'should initilize errors to an empty Hash' do
     system_notification = SystemNotification.new

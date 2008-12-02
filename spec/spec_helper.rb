@@ -50,3 +50,16 @@ if defined?(Rcov)
   all_app_files = Dir.glob('{app,lib}/**/*.rb')
   all_app_files.each{|rb| require rb}
 end
+
+module SystemNotificationSpecHelper
+  def valid_attributes
+    user1 = mock_model(User, :mail => 'user1@example.com')
+    user2 = mock_model(User, :mail => 'user2@example.com')
+    return { 
+      :body => 'a body',
+      :subject => 'a subject line',
+      :users => [user1, user2]
+    }
+  end
+end
+
