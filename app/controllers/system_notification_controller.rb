@@ -4,5 +4,6 @@ class SystemNotificationController < ApplicationController
   before_filter :require_admin
   
   def index
+    @system_notification = SystemNotification.new
   end
 end

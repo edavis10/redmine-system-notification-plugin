@@ -1,1 +1,20 @@
-<h1>Hello</h1>
+<h1><%= l(:system_notification)%></h1>
+
+<% labelled_tabular_form_for :system_notification, @system_notification, :url =>{:action => 'create'} do |f|  %>
+<%= error_messages_for 'system_notification' %>
+
+<div class="box"> 
+  <p>
+    <%= f.select 'time', SystemNotification::Times.invert.to_a %>
+  </p>
+  <p>
+    <%= f.text_field 'subject', :label=>'field_system_notification_subject' -%>
+  </p>
+  <p>
+    <%= f.text_area 'body', :label=>'field_system_notification_body', :rows => 7 -%>
+  </p>
+
+  <%# TODO: Users %>
+</div>
+<%= submit_tag l(:button_send) -%>
+<% end -%>

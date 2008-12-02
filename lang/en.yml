@@ -1,1 +1,5 @@
 system_notification: "System Notifications"
+field_time: Time
+field_system_notification_subject: Subject
+field_system_notification_body: Body
+button_send: Send
