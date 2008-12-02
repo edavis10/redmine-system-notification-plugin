@@ -13,8 +13,26 @@ class SystemNotification
     :all => "All"
   }
   
-  def initialize
+  def initialize(options = { })
     self.errors = { }
-    self.users = []
+    self.users = options[:users] || []
+    self.subject = options[:subject]
+    self.body = options[:body]
+  end
+  
+  def valid?
+    if self.subject.blank?
+      self.errors[:subject] = 'activerecord_error_blank'
+    end
+    
+    if self.body.blank?
+      self.errors[:body] = 'activerecord_error_blank'
+    end
+    
+    if self.users.empty?
+      self.errors[:users] = 'activerecord_error_empty'
+    end
+    
+    return self.errors.empty?
   end
 end

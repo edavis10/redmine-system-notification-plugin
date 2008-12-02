@@ -1,5 +1,17 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+module SystemNotificationSpecHelper
+  def valid_attributes
+    user1 = mock_model(User)
+    user2 = mock_model(User)
+    return { 
+      :body => 'a body',
+      :subject => 'a subject line',
+      :users => [user1, user2]
+    }
+  end
+end
+
 describe SystemNotification do
   it 'should initilize errors to an empty Hash' do
     system_notification = SystemNotification.new
@@ -14,3 +26,26 @@ describe SystemNotification do
   end
 end
 
+describe SystemNotification, "valid?" do
+  include SystemNotificationSpecHelper
+  
+  it 'should be invalid without a subject' do
+    system_notification = SystemNotification.new(valid_attributes.except(:subject))
+    system_notification.valid?.should be_false
+  end
+  
+  it 'should be invalid without a body' do
+    system_notification = SystemNotification.new(valid_attributes.except(:body))
+    system_notification.valid?.should be_false
+  end
+  
+  it 'should be invalid without any users' do
+    system_notification = SystemNotification.new(valid_attributes.except(:users))
+    system_notification.valid?.should be_false
+  end
+end
+
+describe SystemNotification, ".send" do
+  it 'should not send if the object is invalid'
+  it 'should send a SystemNotification Mail'
+end
