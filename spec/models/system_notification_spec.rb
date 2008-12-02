@@ -45,7 +45,21 @@ describe SystemNotification, "valid?" do
   end
 end
 
-describe SystemNotification, ".send" do
-  it 'should not send if the object is invalid'
-  it 'should send a SystemNotification Mail'
+describe SystemNotification, ".deliver" do
+  include SystemNotificationSpecHelper
+
+  it 'should not send if the object is invalid' do
+    system_notification = SystemNotification.new(valid_attributes)
+    system_notification.should_receive(:valid?).and_return(false)
+    
+    system_notification.deliver.should be_false
+  end
+
+  it 'should send a SystemNotification Mail' do
+    system_notification = SystemNotification.new(valid_attributes)
+    system_notification.should_receive(:valid?).and_return(true)
+    SystemNotificationMailer.should_receive(:deliver_system_notification)
+    
+    system_notification.deliver.should be_true
+  end
 end

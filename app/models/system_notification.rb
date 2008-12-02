@@ -35,4 +35,13 @@ class SystemNotification
     
     return self.errors.empty?
   end
+  
+  def deliver
+    if self.valid?
+      SystemNotificationMailer.deliver_system_notification(self)
+      return true
+    else
+      return false
+    end
+  end
 end
