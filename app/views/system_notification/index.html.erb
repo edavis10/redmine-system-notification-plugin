@@ -13,8 +13,16 @@
   <p>
     <%= f.text_area 'body', :rows => 7 -%>
   </p>
+  <p id="user_list">
+    <%= render :partial => 'users', :object => @system_notification.users %>
+  </p>
 
-  <%# TODO: Users %>
 </div>
 <%= submit_tag l(:button_send) -%>
 <% end -%>
+
+<%= observe_field 'system_notification_time',
+:url => { :action => :users_since },
+:update => :user_list,
+      :with => 'time'
+      %>

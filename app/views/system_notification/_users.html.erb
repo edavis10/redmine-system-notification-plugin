@@ -1,0 +1,11 @@
+    <label><%= l(:field_users) %></label>
+    <% unless users.empty? %>
+    <%= users.size -%> <%= "users".pluralize %>
+    <ul>
+      <% users.sort.each do |user| %>
+      <li><%= h user.name %></li>
+      <% end %>
+    </ul>
+    <% end %>
+
+
