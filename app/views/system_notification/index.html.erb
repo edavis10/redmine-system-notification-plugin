@@ -5,7 +5,7 @@
 
 <div class="box"> 
   <p>
-    <%= f.select 'time', SystemNotification::Times.invert.to_a %>
+    <%= f.select 'time', SystemNotification::Times.invert.to_a.sort, :include_blank => true %>
   </p>
   <p>
     <%= f.text_field 'subject'-%>

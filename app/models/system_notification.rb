@@ -6,11 +6,11 @@ class SystemNotification
   attr_accessor :errors
 
   Times = { 
-    :day => "24 hours",
-    :week => "1 week",
-    :month => "1 month",
-    :this_year => "This year",
-    :all => "All"
+    :day => GLoc.l(:text_24_hours),
+    :week => GLoc.l(:text_1_week),
+    :month => GLoc.l(:text_1_month),
+    :this_year => GLoc.l(:text_this_year),
+    :all => GLoc.l(:text_all_time)
   }
   
   def initialize(options = { })

@@ -4,3 +4,9 @@ field_subject: Subject
 field_body: Body
 field_users: Users
 button_send: Send
+text_24_hours: "24 hours"
+text_1_week: "1 week"
+text_1_month: "1 month"
+text_this_year: "This year"
+text_all_time: "All"
+
