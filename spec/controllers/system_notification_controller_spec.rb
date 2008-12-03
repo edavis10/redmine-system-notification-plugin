@@ -101,3 +101,60 @@ describe SystemNotificationController,'#create with an invalid SystemNotificatio
   end
   
 end
+
+describe SystemNotificationController,'#users_since using HTML posts' do
+  before(:each) do
+    admin = mock_model(User, :admin? => true, :logged? => true)
+    User.stub!(:current).at_least(:once).and_return(admin)
+  end
+
+  it 'should redirect to #index' do
+    post :users_since, :time => 'week'
+    response.should be_redirect
+    response.should redirect_to(:controller => 'system_notification', :action => 'index')
+  end
+end
+
+describe SystemNotificationController,'#users_since using JavaScript posts' do
+  def do_js_post(time='week')
+    request.env["HTTP_ACCEPT"] = "text/javascript" 
+    post :users_since, { :time => time}
+  end
+  
+  before(:each) do
+    admin = mock_model(User, :admin? => true, :logged? => true)
+    User.stub!(:current).at_least(:once).and_return(admin)
+  end
+
+  it 'should respond to js requests' do
+    do_js_post
+    response.should be_success
+  end
+
+  it 'should render the user partial' do
+    do_js_post
+    response.should render_template('_users')
+  end
+
+  it 'should find the users since a time' do
+    SystemNotification.should_receive(:users_since).with('week').and_return([])
+    do_js_post
+  end
+
+  it 'should set @users for the view' do
+    do_js_post
+    assigns[:users].should_not be_nil
+  end
+
+  it 'should handle empty strings for the time' do
+    SystemNotification.should_not_receive(:users_since)
+    do_js_post('')
+    response.should be_success
+  end
+
+  it 'should handle nil strings for the time' do
+    SystemNotification.should_not_receive(:users_since)
+    do_js_post('')
+    response.should be_success
+  end
+end

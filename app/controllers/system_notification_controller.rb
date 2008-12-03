@@ -20,9 +20,10 @@ class SystemNotificationController < ApplicationController
   end
   
   def users_since
-    @users = SystemNotification.users_since(params[:time]) if params[:time]
+    @users = SystemNotification.users_since(params[:time]) if params[:time] && !params[:time].empty?
     @users ||= []
     respond_to do |format|
+      format.html { redirect_to :action => 'index' }
       format.js { render :partial => 'users', :object => @users }
     end
   end
