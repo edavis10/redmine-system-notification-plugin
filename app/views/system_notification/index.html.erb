@@ -18,7 +18,8 @@
   </p>
 
 </div>
-<%= submit_tag l(:button_send) -%>
+<%= submit_tag l(:button_send) -%> <input type="reset" value="<%= l(:button_clear) -%>" onclick="$('user_items').innerHTML = '';" />
+
 <% end -%>
 
 <%= observe_field 'system_notification_time',
