@@ -5,7 +5,7 @@ System Notifications is a Redmine plugin that will allow an Administrator to sen
 == Features
 
 * Send email to recently logged in users
-* Ajax user selector to preview which users will recieve the email
+* Ajax user selector to preview which users will receive the email
 
 == Getting the plugin
 
