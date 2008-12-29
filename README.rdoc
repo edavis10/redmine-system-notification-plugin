@@ -1,3 +1,38 @@
-= system_notification
+= Plugin name
 
-Description goes here
+System Notifications is a Redmine plugin that will allow an Administrator to send notification emails to recently logged in users.  This is useful to announce new features, downtime, or other system information.
+
+== Features
+
+* Send email to recently logged in users
+* Ajax user selector to preview which users will recieve the email
+
+== Getting the plugin
+
+A copy of the plugin can be downloaded from {Little Stream Software}[https://projects.littlestreamsoftware.com/projects/list_files/redmine-notify] or from {GitHub}[http://github.com/edavis10/redmine-system-notification-plugin/tree/master]
+
+
+== Installation and Setup
+
+1. Follow the Redmine plugin installation steps at: http://www.redmine.org/wiki/redmine/Plugins 
+2. Restart your Redmine web servers (e.g. mongrel, thin, mod_rails)
+
+== Usage
+
+To send an email:
+
+1. Login to Redmine as an Administrator
+2. Browse to the Administration panel
+3. Select the System Notifications Panel
+4. Pick which users to send the notification to
+5. Enter the Subject and Body of the email
+6. Click Send
+
+== License
+
+This plugin is licensed under the GNU GPL v2.  See COPYRIGHT.txt and GPL.txt for details.
+
+== Project help
+
+If you need help you can contact the maintainer at his email address (See CREDITS.txt) or create an issue in the Bug Tracker.  The bug tracker is located at  https://projects.littlestreamsoftware.com
+
