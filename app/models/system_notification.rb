@@ -5,14 +5,6 @@ class SystemNotification
   attr_accessor :users
   attr_accessor :errors
 
-  Times = { 
-    :day => GLoc.l(:text_24_hours),
-    :week => GLoc.l(:text_1_week),
-    :month => GLoc.l(:text_1_month),
-    :this_year => GLoc.l(:text_this_year),
-    :all => GLoc.l(:text_all_time)
-  }
-  
   def initialize(options = { })
     self.errors = { }
     self.users = options[:users] || []
@@ -46,8 +38,18 @@ class SystemNotification
     end
   end
   
+  def self.times
+    {
+      :day => GLoc.ll(GLoc.current_language, :text_24_hours),
+      :week => GLoc.ll(GLoc.current_language, :text_1_week),
+      :month => GLoc.ll(GLoc.current_language, :text_1_month),
+      :this_year => GLoc.ll(GLoc.current_language, :text_this_year),
+      :all => GLoc.ll(GLoc.current_language, :text_all_time)
+    } 
+  end
+  
   def self.users_since(time)
-    if SystemNotification::Times.include?(time.to_sym)
+    if SystemNotification.times.include?(time.to_sym)
       if time.to_sym == :all
         users = User.find(:all)
       else
