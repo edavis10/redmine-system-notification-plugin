@@ -1,6 +1,5 @@
 system_notification: "System Notifications"
 field_time: Users since
-field_subject: Subject
 field_body: Body
 field_users: Users
 button_send: Send
