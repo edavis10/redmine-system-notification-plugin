@@ -9,7 +9,12 @@ class SystemNotificationController < ApplicationController
   
   def create
     @system_notification = SystemNotification.new(params[:system_notification])
-    @system_notification.users = SystemNotification.users_since(params[:system_notification][:time]) if params[:system_notification][:time]
+    if params[:system_notification][:time]
+      @system_notification.users = SystemNotification.users_since(params[:system_notification][:time],
+                                                                  {
+                                                                    :projects => params[:system_notification][:projects]
+                                                                  })
+    end
     if @system_notification.deliver
       flash[:notice] = "System Notification was successfully sent."
       redirect_to :action => 'index'

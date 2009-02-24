@@ -34,7 +34,7 @@ describe SystemNotificationController,'#create with valid SystemNotification' do
     @system_notification.stub!(:deliver).and_return(true)
     @system_notification.stub!(:users=)
     SystemNotification.stub!(:new).and_return(@system_notification)
-    SystemNotification.stub!(:users_since).with('week').and_return(@users)
+    SystemNotification.stub!(:users_since).with('week', :projects => nil).and_return(@users)
   end
   
 
@@ -55,11 +55,17 @@ describe SystemNotificationController,'#create with valid SystemNotification' do
   end
   
   it 'should get the users based on the Time' do
-    SystemNotification.should_receive(:users_since).with('week').and_return(@users)
+    SystemNotification.should_receive(:users_since).with('week', :projects => nil).and_return(@users)
     post :create, :system_notification => { :subject => 'Test', :body => 'A notification', :time => 'week'}
     assigns[:system_notification].users.should eql(@users)
   end
 
+  it 'should optionally add a project filter' do
+    SystemNotification.should_receive(:users_since).with('week', {:projects => ['10']}).and_return(@users)
+    post :create, :system_notification => { :subject => 'Test', :body => 'A notification', :time => 'week', :projects => ['10']}
+  end
+
+  
   it 'should deliver the SystemNotification' do
     @system_notification.should_receive(:deliver).and_return(true)
     post :create, :system_notification => { :subject => 'Test', :body => 'A notification', :time => 'week'}
@@ -80,7 +86,7 @@ describe SystemNotificationController,'#create with an invalid SystemNotificatio
     @system_notification.stub!(:deliver).and_return(false)
     @system_notification.stub!(:users=)
     SystemNotification.stub!(:new).and_return(@system_notification)
-    SystemNotification.stub!(:users_since).with('week').and_return(@users)
+    SystemNotification.stub!(:users_since).with('week', :projects => nil).and_return(@users)
   end
   
 
