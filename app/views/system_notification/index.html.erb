@@ -8,10 +8,7 @@
     <%= f.select 'time', SystemNotification.times.invert.to_a.sort, :include_blank => true %>
   </p>
   <p>
-    <label for="system_notification_projects"><%= l(:label_project_plural) %></label>
-    <%= select_tag 'system_notification[projects][]',
-                    project_tree_options_for_select(Project.find(:all)),
-                    :multiple => true, :size => 10, :id => "system_notification_projects" %>
+    <%= system_notification_project_select %>
   </p>
   <p>
     <%= f.text_field 'subject'-%>
