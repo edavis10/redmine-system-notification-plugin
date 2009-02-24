@@ -85,10 +85,9 @@ describe SystemNotification, ".users_since" do
 
     it 'a week ago' do
       time = 7.days.ago
-      SystemNotification.should_receive(:time_frame).and_return(time)
+      SystemNotification.should_receive(:time_frame).at_least(:once).and_return(time)
       
       Member.should_receive(:find).with(:all, :include => :user, :conditions => ['1=1 AND (users.last_login_on > (?))', time]).and_return(@member_list)
-#      User.should_receive(:find).with(:all, { :conditions => ['last_login_on > (?)', time] }).and_return(@user_list)
       users = SystemNotification.users_since('week')
       users.should eql(@user_list)
     end
@@ -117,7 +116,7 @@ describe SystemNotification, ".users_since" do
     it 'based on project' do
       time = 7.days.ago
       projects = [@project1]
-      SystemNotification.should_receive(:time_frame).and_return(time)
+      SystemNotification.should_receive(:time_frame).at_least(:once).and_return(time)
       Member.should_receive(:find).
         with(:all, {
                :include => :user,

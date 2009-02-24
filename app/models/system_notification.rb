@@ -49,24 +49,8 @@ class SystemNotification
   end
 
   def self.users_since(time, filters = { })
-    conditions = ARCondition.new
     if SystemNotification.times.include?(time.to_sym)
-      unless time.to_sym == :all
-        conditions.add ["#{User.table_name}.last_login_on > (?)", time_frame(time)]
-      end
-    else
-      return [] # Invalid time
-    end
-
-    if filters[:projects]
-      conditions.add ["project_id IN (?)", filters[:projects]]
-    end
-
-    if conditions
-      members = Member.find(:all, :include => :user, :conditions => conditions.conditions)
-    end
-
-    if members
+      members = Member.find(:all, :include => :user, :conditions => self.conditions(time, filters))
       return members.collect(&:user).uniq
     else
       return []
@@ -89,4 +73,12 @@ class SystemNotification
       nil
     end
   end
+
+  def self.conditions(time, filters = { })
+    c = ARCondition.new
+    c.add ["#{User.table_name}.last_login_on > (?)", time_frame(time)] unless time.to_sym == :all
+    c.add ["project_id IN (?)", filters[:projects]] if filters[:projects]
+    return c.conditions
+  end
+
 end
