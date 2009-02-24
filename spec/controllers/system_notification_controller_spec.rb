@@ -116,9 +116,9 @@ describe SystemNotificationController,'#users_since using HTML posts' do
 end
 
 describe SystemNotificationController,'#users_since using JavaScript posts' do
-  def do_js_post(time='week')
+  def do_js_post(time='week', filters={})
     request.env["HTTP_ACCEPT"] = "text/javascript" 
-    post :users_since, { :time => time}
+    post :users_since, {:system_notification => { :time => time}.merge(filters) }
   end
   
   before(:each) do
@@ -137,8 +137,13 @@ describe SystemNotificationController,'#users_since using JavaScript posts' do
   end
 
   it 'should find the users since a time' do
-    SystemNotification.should_receive(:users_since).with('week').and_return([])
+    SystemNotification.should_receive(:users_since).with('week', {:projects => nil}).and_return([])
     do_js_post
+  end
+
+  it 'should optionally add a project filter' do
+    SystemNotification.should_receive(:users_since).with('week', {:projects => ['10']}).and_return([])
+    do_js_post('week', :projects => ['10'])
   end
 
   it 'should set @users for the view' do

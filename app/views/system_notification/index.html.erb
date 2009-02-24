@@ -1,11 +1,17 @@
 <h1><%= l(:system_notification)%></h1>
 
-<% labelled_tabular_form_for :system_notification, @system_notification, :url =>{:action => 'create'} do |f|  %>
+<% labelled_tabular_form_for :system_notification, @system_notification, {:url =>{:action => 'create'}, :html => {:id => 'system_notification'}} do |f|  %>
 <%= error_messages_for 'system_notification' %>
 
 <div class="box"> 
   <p>
     <%= f.select 'time', SystemNotification.times.invert.to_a.sort, :include_blank => true %>
+  </p>
+  <p>
+    <label for="system_notification_projects"><%= l(:label_project_plural) %></label>
+    <%= select_tag 'system_notification[projects][]',
+                    project_tree_options_for_select(Project.find(:all)),
+                    :multiple => true, :size => 10, :id => "system_notification_projects" %>
   </p>
   <p>
     <%= f.text_field 'subject'-%>
@@ -25,5 +31,11 @@
 <%= observe_field 'system_notification_time',
 :url => { :action => :users_since },
 :update => :user_list,
-      :with => 'time'
+      :with => "$('system_notification').serialize()"
+      %>
+
+<%= observe_field 'system_notification_projects',
+:url => { :action => :users_since },
+:update => :user_list,
+      :with => "$('system_notification').serialize()"
       %>
