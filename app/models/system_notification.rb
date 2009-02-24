@@ -47,19 +47,30 @@ class SystemNotification
       :all => GLoc.ll(GLoc.current_language, :text_all_time)
     } 
   end
-  
-  def self.users_since(time)
+
+  def self.users_since(time, filters = { })
+    conditions = ARCondition.new
     if SystemNotification.times.include?(time.to_sym)
-      if time.to_sym == :all
-        users = User.find(:all)
-      else
-        users = User.find(:all, :conditions => ['last_login_on > (?)', time_frame(time)])
+      unless time.to_sym == :all
+        conditions.add ["#{User.table_name}.last_login_on > (?)", time_frame(time)]
       end
     else
-      users = []
-
+      return [] # Invalid time
     end
-    return users
+
+    if filters[:projects]
+      conditions.add ["project_id IN (?)", filters[:projects]]
+    end
+
+    if conditions
+      members = Member.find(:all, :include => :user, :conditions => conditions.conditions)
+    end
+
+    if members
+      return members.collect(&:user).uniq
+    else
+      return []
+    end
   end
   
   private
