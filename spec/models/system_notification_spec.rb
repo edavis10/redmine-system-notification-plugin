@@ -16,6 +16,11 @@ end
 
 describe SystemNotification, "valid?" do
   include SystemNotificationSpecHelper
+
+  it 'should be valid with the body, subject, and users' do
+    system_notification = SystemNotification.new(valid_attributes)
+    system_notification.valid?.should be_true
+  end
   
   it 'should be invalid without a subject' do
     system_notification = SystemNotification.new(valid_attributes.except(:subject))
