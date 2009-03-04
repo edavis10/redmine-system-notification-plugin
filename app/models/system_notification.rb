@@ -5,6 +5,12 @@ class SystemNotification
   attr_accessor :users
   attr_accessor :errors
 
+  if Redmine.const_defined?(:I18n)
+    include Redmine::I18n
+  else
+    include GLoc
+  end
+
   def initialize(options = { })
     self.errors = { }
     self.users = options[:users] || []
@@ -40,11 +46,11 @@ class SystemNotification
   
   def self.times
     {
-      :day => GLoc.ll(GLoc.current_language, :text_24_hours),
-      :week => GLoc.ll(GLoc.current_language, :text_1_week),
-      :month => GLoc.ll(GLoc.current_language, :text_1_month),
-      :this_year => GLoc.ll(GLoc.current_language, :text_this_year),
-      :all => GLoc.ll(GLoc.current_language, :text_all_time)
+      :day => ll(current_language, :text_24_hours),
+      :week => ll(current_language, :text_1_week),
+      :month => ll(current_language, :text_1_month),
+      :this_year => ll(current_language, :text_this_year),
+      :all => ll(current_language, :text_all_time)
     } 
   end
 
