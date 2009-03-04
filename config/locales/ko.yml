@@ -1,0 +1,12 @@
+ko:
+  system_notification: "System Notifications"
+  field_time: 다음기간 안에 접속한 사용자
+  field_body: 본문
+  field_users: 수신자
+  button_send: 메일 보내기
+  text_24_hours: "하루 (24 시간)"
+  text_1_week: "한 주 (1 주)"
+  text_1_month: "한 달 (1 달)"
+  text_this_year: "한 해 (1 년)"
+  text_all_time: "모두"
+
