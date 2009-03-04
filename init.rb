@@ -1,6 +1,6 @@
 require 'redmine'
 
-Redmine::Plugin.register :system_notification do
+Redmine::Plugin.register :system_notification_plugin do
   name 'Redmine System Notification plugin'
   author 'Eric Davis'
   description 'This is a plugin for Redmine to allow an Administrator to send systemwide notifications to specific users'
