@@ -1,13 +1,12 @@
-"hu":
-  system_notification: "Rendszer ÈrtesÌtÈsek"
-  field_time: Felhaszn·lÛk Ûta
-  field_subject: CÌm
-  field_body: LeÌr·s
-  field_users: Felhaszn·lÛk
-  button_send: K¸ldÈs
-  text_24_hours: "24 Ûr·ja"
-  text_1_week: "1 hÈt"
-  text_1_month: "1 hÛnap"
-  text_this_year: "Ebben az Èvben"
-  text_all_time: "B·rmikor"
-
+hu:
+  system_notification: "Rendszer √©rtes√≠t√©sek"
+  field_time: Felhaszn√°l√≥k √≥ta
+  field_subject: C√≠m
+  field_body: Le√≠r√°s
+  field_users: Felhaszn√°l√≥k
+  button_send: K√ºld√©s
+  text_24_hours: "24 √≥r√°ja"
+  text_1_week: "1 h√©t"
+  text_1_month: "1 h√≥nap"
+  text_this_year: "Ebben az √©vben"
+  text_all_time: "B√°rmikor"
