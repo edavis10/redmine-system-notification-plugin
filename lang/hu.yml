@@ -1,0 +1,12 @@
+system_notification: "Rendszer értesítések"
+field_time: Felhasználók óta
+field_subject: Cím
+field_body: Leírás
+field_users: Felhasználók
+button_send: Küldés
+text_24_hours: "24 órája"
+text_1_week: "1 hét"
+text_1_month: "1 hónap"
+text_this_year: "Ebben az évben"
+text_all_time: "Bármikor"
+
