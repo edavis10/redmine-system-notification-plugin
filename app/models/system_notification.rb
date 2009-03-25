@@ -82,6 +82,7 @@ class SystemNotification
 
   def self.conditions(time, filters = { })
     c = ARCondition.new
+    c.add ["#{User.table_name}.status = ?", User::STATUS_ACTIVE]
     c.add ["#{User.table_name}.last_login_on > (?)", time_frame(time)] unless time.to_sym == :all
     c.add ["project_id IN (?)", filters[:projects]] if filters[:projects]
     return c.conditions
