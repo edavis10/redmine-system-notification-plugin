@@ -21,7 +21,7 @@ describe SystemNotificationMailer, 'system_notification' do
   end
   
   it 'should use the body from the object' do
-    @mail.body.should match(/#{ @system_notification.body }/)
+    @mail.encoded.should match(/#{ @system_notification.body }/)
   end
   
   it 'should use the Current user as the reply to' do
