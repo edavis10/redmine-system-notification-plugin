@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe SystemNotificationController do
   it 'should allow administrator access' do
-    admin = mock_model(User, :admin? => true, :logged? => true)
+    admin = mock_model(User, :admin? => true, :logged? => true, :language => :en)
     User.should_receive(:current).at_least(:once).and_return(admin)
     get :index
     response.should be_success
@@ -14,7 +14,7 @@ describe SystemNotificationController do
   end
 
   it 'should deny non-administrator users' do
-    user = mock_model(User, :admin? => false, :logged? => true)
+    user = mock_model(User, :admin? => false, :logged? => true, :language => :en)
     User.should_receive(:current).at_least(:once).and_return(user)
     get :index
     response.should_not be_success
@@ -23,7 +23,7 @@ end
 
 describe SystemNotificationController,'#create with valid SystemNotification' do
   before(:each) do
-    admin = mock_model(User, :admin? => true, :logged? => true)
+    admin = mock_model(User, :admin? => true, :logged? => true, :language => :en)
     User.stub!(:current).at_least(:once).and_return(admin)
     
     user1 = mock_model(User)
@@ -75,7 +75,7 @@ end
 
 describe SystemNotificationController,'#create with an invalid SystemNotification' do
   before(:each) do
-    admin = mock_model(User, :admin? => true, :logged? => true)
+    admin = mock_model(User, :admin? => true, :logged? => true, :language => :en)
     User.stub!(:current).at_least(:once).and_return(admin)
     
     user1 = mock_model(User)
@@ -110,7 +110,7 @@ end
 
 describe SystemNotificationController,'#users_since using HTML posts' do
   before(:each) do
-    admin = mock_model(User, :admin? => true, :logged? => true)
+    admin = mock_model(User, :admin? => true, :logged? => true, :language => :en)
     User.stub!(:current).at_least(:once).and_return(admin)
   end
 
@@ -128,7 +128,7 @@ describe SystemNotificationController,'#users_since using JavaScript posts' do
   end
   
   before(:each) do
-    admin = mock_model(User, :admin? => true, :logged? => true)
+    admin = mock_model(User, :admin? => true, :logged? => true, :language => :en)
     User.stub!(:current).at_least(:once).and_return(admin)
   end
 
