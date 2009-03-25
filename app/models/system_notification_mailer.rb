@@ -3,6 +3,8 @@ class SystemNotificationMailer < Mailer
     recipients system_notification.users.collect(&:mail)
     subject system_notification.subject
     from User.current.mail
+    
+    content_type "multipart/alternative"
 
     part "text/plain" do |p|
       p.body = render_message("system_notification.erb", :body => system_notification.body)
