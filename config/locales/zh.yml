@@ -1,0 +1,12 @@
+zh:
+  system_notification: "系统通知邮件"
+  field_time: 根据最后登录时间选择用户
+  field_body: 正文
+  field_users: 用户
+  button_send: 发送
+  text_24_hours: "24小时"
+  text_1_week: "1周"
+  text_1_month: "1个月"
+  text_this_year: "今年"
+  text_all_time: "全部"
+
