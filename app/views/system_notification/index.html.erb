@@ -10,10 +10,10 @@
     <%= system_notification_project_select %>
   </p>
   <p>
-    <%= f.text_field 'subject'-%>
+    <%= f.text_field 'subject', :size => 80 -%>
   </p>
   <p>
-    <%= f.text_area 'body', :rows => 7 -%>
+    <%= f.text_area 'body', :class => 'wiki-edit', :rows => 10  -%>
   </p>
   <p id="user_list">
     <%= render :partial => 'users', :object => @system_notification.users %>
@@ -35,3 +35,5 @@
 :update => :user_list,
       :with => "$('system_notification').serialize()"
       %>
+
+<%= wikitoolbar_for 'system_notification_body' %>
