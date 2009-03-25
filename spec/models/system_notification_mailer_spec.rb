@@ -21,7 +21,11 @@ describe SystemNotificationMailer, 'system_notification' do
   end
   
   it 'should use the body from the object' do
-    @mail.encoded.should match(/#{ @system_notification.body }/)
+    @mail.encoded.should match(/#{ Regexp.escape(@system_notification.body) }/)
+  end
+
+  it 'should render the textile content into HTML' do
+    @mail.encoded.should match(/<strong>textile<\/strong>/)
   end
   
   it 'should use the Current user as the reply to' do

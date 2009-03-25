@@ -56,7 +56,7 @@ module SystemNotificationSpecHelper
     user1 = mock_model(User, :mail => 'user1@example.com')
     user2 = mock_model(User, :mail => 'user2@example.com')
     return { 
-      :body => 'a body',
+      :body => 'a body with some *textile*\n\nAnd some extra lines',
       :subject => 'a subject line',
       :users => [user1, user2]
     }
