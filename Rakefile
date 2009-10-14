@@ -112,3 +112,29 @@ namespace :release do
     `scp -r coverage/ dev.littlestreamsoftware.com:/home/websites/projects.littlestreamsoftware.com/shared/embedded_docs/#{REDMINE_PROJECT_NAME}/coverage`
   end
 end
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |s|
+    s.name = "system_notification_plugin"
+    s.summary = "The System Notification plugin allows Administrators to send systemwide email notifications to specific users."
+    s.email = "edavis@littlestreamsoftware.com"
+    s.homepage = "https://projects.littlestreamsoftware.com/projects/TODO"
+    s.description = "The System Notification plugin allows Administrators to send systemwide email notifications to specific users."
+    s.authors = ["Eric Davis"]
+    s.rubyforge_project = "system_notification_plugin" # TODO
+    s.files =  FileList[
+                        "[A-Z]*",
+                        "init.rb",
+                        "rails/init.rb",
+                        "{bin,generators,lib,test,app,assets,config,lang}/**/*",
+                        'lib/jeweler/templates/.gitignore'
+                       ]
+  end
+  Jeweler::GemcutterTasks.new
+  Jeweler::RubyforgeTasks.new do |rubyforge|
+    rubyforge.doc_task = "rdoc"
+  end
+rescue LoadError
+  puts "Jeweler, or one of its dependencies, is not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+end
+
